@@ -365,5 +365,18 @@ function vv() {
     fi
 }
 
+function dockerrm() {
+    # Check if the number of arguments ($#) is 0
+    if [[ $# -eq 0 ]]; then
+        echo "Docker container hash cannot be empty. Please provide at least one hash."
+        return 1
+    fi
+
+    # Pass all arguments ($@) directly to the docker commands
+    docker stop "$@"
+    docker rm "$@"
+}
+
 # WSL split pane starting with the current directory
 PROMPT_COMMAND=${PROMPT_COMMAND:+"$PROMPT_COMMAND ; "}'printf "\e]9;9;%s\e\\" "$(wslpath -w "$PWD")"'
+
